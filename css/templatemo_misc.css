@@ -124,12 +124,8 @@ img.wp-smiley, img.emoji {
     background-color: #333;
 }
 
-.nav-links > ul
-{
-	padding:0px;
-}
-
 #nav  {
+	padding:0px;
     list-style-type: none;
 }
 
