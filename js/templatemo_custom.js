@@ -44,14 +44,6 @@ jQuery(document).ready(function ($) {
 	});
 
 
-
-	/************** Nice Scroll Plugin *********************/
-	$("html").niceScroll({
-		cursorcolor: '#a71e2b',
-		cursorborder: 0,
-		zindex: 99999,
-	});
-
 	/************** LightBox *********************/
 	$(function () {
 		$('[data-rel="lightbox"]').lightbox();

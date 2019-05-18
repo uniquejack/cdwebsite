@@ -120,31 +120,66 @@ img.wp-smiley, img.emoji {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    background-color: #333;
+	overflow: hidden;
+	height: 60px;
+	background-color: #333;
 }
 
-#nav  {
-	margin: 0px;
-	padding: 0px;
-	list-style-type: none;
+.menu {
 	text-align: left;
+	text-transform: uppercase;
+	font-weight: 500;
 }
-
-#nav li {
-    display: inline-block;
+.menu * {
+	box-sizing: border-box;
 }
-
-#nav li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+.menu li {
+	margin: auto;
+	display: inline-block;
+	height: 60px;
+	list-style: outside none none;
+	padding: 0px 0px 0px 30px;
 }
-
-#nav li a:hover {
-    background-color: #111;
+.menu a {
+	padding: 0.5em 0;
+	color: white;
+	position: relative;
+	text-decoration: none;
+	line-height: 60px;
+}
+.menu a:before,
+.menu a:after {
+	position: absolute;
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+}
+.menu a:before {
+	bottom: 0;
+	display: block;
+	height: 3px;
+	width: 0%;
+	content: "";
+	background-color: white;
+}
+.menu a:after {
+	left: 0;
+	top: 0;
+	padding: 0.5em 0;
+	position: absolute;
+	content: attr(data-hover);
+	color: #ffffff;
+	white-space: nowrap;
+	max-width: 0%;
+	overflow: hidden;
+}
+.menu a:hover:before,
+.menu .current a:before {
+	opacity: 1;
+	width: 100%;
+}
+.menu a:hover:after,
+.menu .current a:after {
+	max-width: 100%;
 }
 
 .logoTabs
