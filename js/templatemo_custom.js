@@ -13,6 +13,44 @@
 
 jQuery(document).ready(function ($) {
 
+	// Cache selectors
+	var mainMenuItems = $(".main_menu > li");
+	var menuItems = $("#nav > li");
+
+	function checkIfScrollNavigation() {
+		var hyperlink = $("a", this);
+		if (hyperlink.attr("href").search("#") != -1)
+			return this;
+	}
+
+	var scrollItems = menuItems.map(checkIfScrollNavigation);
+	var scrollMainMenuItems = mainMenuItems.map(checkIfScrollNavigation);
+
+	function onScroll() {
+		// Get container scroll position
+		var fromTop = $(this).scrollTop();
+		
+		// Get id of current scroll item
+		var cur = scrollItems.map(function() {
+			var elementId = $("a", this).attr("href");
+
+			if ($(elementId).offset().top <= fromTop + 10)
+				return this;
+		});
+
+		// Get the last element
+		cur = cur.last();
+
+		if (!cur.hasClass("current"))
+		{
+			// Set/remove active class
+			cur.addClass("current").siblings().removeClass("current");
+		}      
+	}
+
+	// Bind to scroll
+	$(window).resize(onScroll);
+	$(window).scroll(onScroll);
 
 	function goToByScroll(id) {
 		id = id.replace("#", "");
@@ -22,15 +60,20 @@ jQuery(document).ready(function ($) {
 		},'slow');
 	}
 	
-	$("#nav > li > a").click(function (e) {
-		if ($(this).attr("href").search("#") == -1)
+	function animateScroll(e) {
+		var hyperlink = $("a", this);
+
+		if (hyperlink.attr("href").search("#") == -1)
 			return;
+
 		// Prevent a page reload when a link is pressed
 		e.preventDefault();
 		// Call the scroll function
-		goToByScroll($(this).attr("href"));
-	});
-	
+		goToByScroll(hyperlink.attr("href"));
+	}
+
+	scrollItems.click(animateScroll);
+	scrollMainMenuItems.click(animateScroll);
 
 	/*------------------------------------------------------------------------*/
 	/*	1.	Plugins Init
@@ -56,6 +99,18 @@ jQuery(document).ready(function ($) {
 
 
 	/************** Responsive Navigation *********************/
+
+	$(document).mouseup(function (e) {
+		var menu = $('.responsive-navigation');
+
+		// if the target of the click isn't the container
+		// nor a descendant of the container
+		if (!menu.is(e.target) && menu.has(e.target).length === 0) 
+		{
+			$('.responsive_menu').hide();
+			e.preventDefault();
+		}	
+	});
 
 	$('.menu-toggle-btn').click(function () {
 		$('.responsive_menu').stop(true, true).slideToggle();
